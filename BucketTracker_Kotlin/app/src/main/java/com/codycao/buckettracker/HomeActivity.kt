@@ -20,7 +20,7 @@ class HomeActivity : AppCompatActivity() {
     private var timer: CountDownTimer? = null
 
     //Listeners
-    private val button_add_score_longClickListener: View.OnLongClickListener = View.OnLongClickListener {
+    private val button_add_score_longClickListener: View.OnLongClickListener = View.OnLongClickListener{
         var score: Int = 0
         if(binding.checkboxAddOne.isChecked) {
             score += 1
