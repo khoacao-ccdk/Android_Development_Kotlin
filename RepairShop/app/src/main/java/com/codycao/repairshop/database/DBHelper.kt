@@ -1,5 +1,6 @@
 package com.codycao.repairshop.database
 
+import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
@@ -34,7 +35,20 @@ class DBHelper(private var context: Context) :
 
     }
 
-    companion object myInstance{
+    fun addVehicle(vehicleToAdd: Vehicle) : Long{
+        val db = writableDatabase
+        val cv = ContentValues()
+        cv.put(COL_VEHICLE_YEAR, vehicleToAdd.year)
+        cv.put(COL_VEHICLE_MAKE_MODEL, vehicleToAdd.makeAndModel)
+        cv.put(COL_VEHICLE_PURCHASE_PRICE, vehicleToAdd.purchasePrice)
+        cv.put(COL_VEHICLE_IS_NEW, vehicleToAdd.isNew)
+        val result = db.insert(TABLE_VEHICLE, null, cv)
+        db.close()
+        return result
+    }
+
+    companion object {
+        private var instance: DBHelper? = null
         //Database Info
         private const val DB_NAME = "Repair Shop"
         private const val DB_VERSION : Int = 1
@@ -54,5 +68,12 @@ class DBHelper(private var context: Context) :
         private const val COL_REPAIR_DATE = "repair_date"
         private const val COL_REPAIR_COST = "repair_cost"
         private const val COL_REPAIR_DESCRIPTION = "repair_description"
+
+        fun getInstance(context: Context): DBHelper {
+            if(instance == null) {
+                instance = DBHelper(context)
+            }
+            return instance!!
+        }
     }
 }
