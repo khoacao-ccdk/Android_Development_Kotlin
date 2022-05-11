@@ -14,6 +14,10 @@ class Vehicle {
         this.vId = vId
     }
 
+    override fun toString(): String {
+        return "$year $makeAndModel"
+    }
+
     var vId : Int = 0
         private set
     var year: Int
@@ -24,8 +28,4 @@ class Vehicle {
         private set
     var isNew : Boolean
         private set
-
-    override fun toString(): String {
-        return "Vehicle(vId=$vId, year=$year, makeAndModel='$makeAndModel', purchasePrice=$purchasePrice, isNew=$isNew)"
-    }
 }
